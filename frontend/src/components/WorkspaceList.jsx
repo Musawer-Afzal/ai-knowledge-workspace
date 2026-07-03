@@ -4,7 +4,7 @@ import WorkspaceCard from "./WorkspaceCard";
 import Spinner from "./Spinner";
 import ErrorBox from "./ErrorBox";
 import EmptyState from "./EmptyState";
-import NewWorkspaceForm from "./NewWorkspaceForm";
+import NewWorkSpaceForm from "./NewWorkSpaceForm";
 
 import { fetchWorkspaces } from "../services/workspaceApi";
 
@@ -95,7 +95,7 @@ if(status === "loading"){
 
     return (
         <div className="space-y-6">
-            <NewWorkspaceForm onCreate={createWorkspace} />
+            <NewWorkSpaceForm onCreate={createWorkspace} />
             <div className="space-y-4">
                 {sortedWorkspaces.map(ws => (
                     <WorkspaceCard
