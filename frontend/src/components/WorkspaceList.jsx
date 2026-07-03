@@ -4,7 +4,7 @@ import WorkspaceCard from "./WorkspaceCard";
 import Spinner from "./Spinner";
 import ErrorBox from "./ErrorBox";
 import EmptyState from "./EmptyState";
-import WorkspaceDetail from "./WorkspaceDetail";
+import NewWorkspaceForm from "./NewWorkspaceForm";
 
 import { fetchWorkspaces } from "../services/workspaceApi";
 
@@ -13,17 +13,12 @@ export default function WorkspaceList() {
 const [workspaces, setWorkSpaces] = useState([]);
 const [status, setStatus] = useState("loading");
 const [retryCount, setRetryCount] = useState(0);
-const [selectedId, setSelectedId] = useState(null)
 
 const sortedWorkspaces = useMemo(() => {
     return [...workspaces].sort(
         (a, b) => b.updatedAt - a.updatedAt
     );
 }, [workspaces]);
-
-const selectedWorkspace = sortedWorkspaces.find(
-    ws => ws.id === selectedId
-)
 
 useEffect(() => {
     let cancelled = false;
@@ -46,6 +41,39 @@ useEffect(() => {
     return () => {cancelled = true};
 }, [retryCount]);
 
+async function createWorkspace(values) {
+    // Temporary workspace shown immediately
+    const tempWorkspace = {
+        id: `temp-${Date.now()}`,
+        docCount: 0,
+        updatedAt: Date.now(),
+        ...values,
+    };
+
+    // Optimistic update
+    setWorkSpaces(prev => [...prev, tempWorkspace]);
+
+    try {
+        // Simulate server assigning a real ID
+        const savedWorkspace = {
+            ...tempWorkspace,
+            id: crypto.randomUUID(),
+        };
+
+        // Replace temp workspace with saved workspace
+        setWorkSpaces(prev =>
+            prev.map(ws =>
+                ws.id === tempWorkspace.id ? savedWorkspace : ws
+            )
+        );
+    } catch {
+        // Roll back if something failed
+        setWorkSpaces(prev =>
+            prev.filter(ws => ws.id !== tempWorkspace.id)
+        );
+    }
+}
+
 if(status === "loading"){
         return <Spinner />;
     }
@@ -65,24 +93,17 @@ if(status === "loading"){
         );
     }
 
-    if(selectedWorkspace){
-        return (
-            <WorkspaceDetail 
-            workspace={selectedWorkspace}
-            onBack={() => setSelectedId(null)}/>
-        )
-    }
-
     return (
-        <div className="space-y-4">
-            {sortedWorkspaces.map(ws => (
-                <WorkspaceCard
-                key={ws.id}
-                name={ws.name}
-                docCount={ws.docCount}
-                onClick={() => setSelectedId(ws.id)}
-                />
-            ))}
+        <div className="space-y-6">
+            <NewWorkspaceForm onCreate={createWorkspace} />
+            <div className="space-y-4">
+                {sortedWorkspaces.map(ws => (
+                    <WorkspaceCard
+                        key={ws.id}
+                        workspace={ws}
+                    />
+                ))}
+            </div>
         </div>
-    )
+    );
 }
