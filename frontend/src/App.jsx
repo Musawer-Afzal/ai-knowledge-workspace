@@ -1,11 +1,38 @@
-import WorkspaceList from "./components/WorkspaceList";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import WorkspacesPage from "./pages/WorkspacesPage";
+import WorkspaceDetailPage from "./pages/WorkspaceDetailPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import Layout from "./layouts/Layout";
 
-function App() {
+export default function App() {
   return (
-    <main className="max-w-3xl mx-auto p-8">
-      <WorkspaceList />
-    </main>
+    <Routes>
+
+      <Route element={<Layout />}>
+
+        <Route
+          index
+          element={<HomePage />}
+        />
+
+        <Route
+          path="workspaces"
+          element={<WorkspacesPage />}
+        />
+
+        <Route
+          path="workspaces/:id"
+          element={<WorkspaceDetailPage />}
+        />
+
+        <Route
+          path="*"
+          element={<NotFoundPage />}
+        />
+
+      </Route>
+
+    </Routes>
   );
 }
-
-export default App;

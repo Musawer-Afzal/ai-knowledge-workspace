@@ -16,3 +16,13 @@ export function fetchWorkspaces(){
         }, SCENARIO === "slow" ? 2000 : 400);
     })
 }
+
+export function fetchWorkspace(id) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            const workspace =
+                MOCK_WORKSPACES.find(ws => ws.id === id);
+            resolve(workspace ?? null);
+        }, 300);
+    });
+}
