@@ -10,7 +10,7 @@ def _now():
 def get_or_404(workspace_id: str) -> dict:
     workspace = _WORKSPACES.get(workspace_id)
 
-    if workspace_id is None:
+    if workspace is None:
         raise HTTPException(status_code=404, detail="Workspace not found")
     
     return workspace

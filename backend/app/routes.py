@@ -23,6 +23,12 @@ def create_workspace(body: WorkspaceCreate):
 
     return workspace
 
+
 @router.get("/workspaces", response_model = list[Workspace])
 def list_workspaces():
     return list(_WORKSPACES.values())
+
+
+@router.get("/workspaces/{workspaces_id}", response_model = Workspace,)
+def get_workspace(workspaces_id: str):
+    return get_or_404(workspaces_id)
