@@ -12,7 +12,7 @@ router = APIRouter()
 def create_access_token(user_id: str) -> str:
     payload = {
         "sub": user_id,
-        "exp": datetime.now(timezone) + timedelta(hours = 12)
+        "exp": datetime.now(timezone.utc) + timedelta(hours = 12),
     }
     return jwt.encode(payload, settings.jwt_secret, algorithm = "HS256")
 
@@ -21,8 +21,8 @@ def create_access_token(user_id: str) -> str:
 def login(form: OAuth2PasswordRequestForm = Depends()):
     user = get_user_by_email(form.username)
 
-    if not user and not verify_password(form.password, user.password_hash):
+    if not user or not verify_password(form.password, user["password_hash"]):
         raise HTTPException(status_code = 401, detail = "Incorrect Email or Password")
     
-    token = create_access_token(user.id)
+    token = create_access_token(user["id"])
     return {"access_token": token, "token_type": "bearer"}
