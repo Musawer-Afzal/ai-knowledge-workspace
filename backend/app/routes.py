@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from .store import _WORKSPACES, _now, get_or_404, generate_id
-from .models import Workspace, WorkspaceCreate, WordspaceUpdate
+from store import _WORKSPACES, _now, get_or_404, generate_id
+from models import Workspace, WorkspaceCreate, WordspaceUpdate
 
 router = APIRouter()
 
