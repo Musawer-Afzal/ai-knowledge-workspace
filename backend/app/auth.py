@@ -1,11 +1,11 @@
 import jwt
 from datetime import datetime, timedelta, timezone
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from fastapi.security import OAuth2PasswordRequestForm
-from fastapi import Depends
 from settings import settings
 from security import verify_password
-from store import get_user_by_email
+from db import get_user_by_email
+from deps import current_user
 
 router = APIRouter()
 
@@ -26,3 +26,11 @@ def login(form: OAuth2PasswordRequestForm = Depends()):
     
     token = create_access_token(user["id"])
     return {"access_token": token, "token_type": "bearer"}
+
+
+@router.get("/me")
+def me(user: dict = Depends(current_user)):
+    return {
+        "id": user["id"],
+        "email": user["email"]
+    }
