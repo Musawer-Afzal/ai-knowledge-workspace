@@ -5,14 +5,19 @@ import Spinner from "./Spinner";
 import ErrorBox from "./ErrorBox";
 import EmptyState from "./EmptyState";
 import NewWorkSpaceForm from "./NewWorkSpaceForm";
+import { useAuth } from "../contexts/AuthContext";
 
-import { fetchWorkspaces } from "../services/workspaceApi";
+import { 
+    fetchWorkspaces,
+    createWorkspace
+ } from "../services/workspaceApi";
 
 export default function WorkspaceList() {
 
 const [workspaces, setWorkSpaces] = useState([]);
 const [status, setStatus] = useState("loading");
 const [retryCount, setRetryCount] = useState(0);
+const { token } = useAuth();
 
 const sortedWorkspaces = useMemo(() => {
     return [...workspaces].sort(
@@ -25,7 +30,7 @@ useEffect(() => {
     async function load(){
         setStatus("loading");
         try{
-            const data = await fetchWorkspaces();
+            const data = await fetchWorkspaces(token);
             if(!cancelled){
                 setWorkSpaces(data);
                 setStatus("done");
@@ -41,33 +46,31 @@ useEffect(() => {
     return () => {cancelled = true};
 }, [retryCount]);
 
-async function createWorkspace(values) {
-    // Temporary workspace shown immediately
+async function handleCreateWorkspace(values) {
+
     const tempWorkspace = {
         id: `temp-${Date.now()}`,
-        docCount: 0,
-        updatedAt: Date.now(),
         ...values,
+        owner_id: "me",
+        created_at: new Date().toISOString(),
     };
 
-    // Optimistic update
     setWorkSpaces(prev => [...prev, tempWorkspace]);
 
     try {
-        // Simulate server assigning a real ID
-        const savedWorkspace = {
-            ...tempWorkspace,
-            id: crypto.randomUUID(),
-        };
 
-        // Replace temp workspace with saved workspace
+        const saved = await createWorkspace(values, token);
+
         setWorkSpaces(prev =>
             prev.map(ws =>
-                ws.id === tempWorkspace.id ? savedWorkspace : ws
+                ws.id === tempWorkspace.id
+                    ? saved
+                    : ws
             )
         );
+
     } catch {
-        // Roll back if something failed
+
         setWorkSpaces(prev =>
             prev.filter(ws => ws.id !== tempWorkspace.id)
         );
@@ -95,7 +98,7 @@ if(status === "loading"){
 
     return (
         <div className="space-y-6">
-            <NewWorkSpaceForm onCreate={createWorkspace} />
+            <NewWorkSpaceForm onCreate={handleCreateWorkspace} />
             <div className="space-y-4">
                 {sortedWorkspaces.map(ws => (
                     <WorkspaceCard
