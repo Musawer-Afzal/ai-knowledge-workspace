@@ -7,18 +7,21 @@ import ErrorBox from "../components/ErrorBox";
 import EmptyState from "../components/EmptyState";
 
 import { fetchWorkspace } from "../services/workspaceApi";
+import { useAuth } from "../contexts/AuthContext";
+
 
 export default function WorkspaceDetailPage() {
   const { id } = useParams();
   const [workspace, setWorkspace] = useState(null);
   const [status, setStatus] = useState("loading");
+  const { token } = useAuth();
 
   useEffect(() => {
     let active = true;
     async function load() {
       setStatus("loading");
       try {
-        const data = await fetchWorkspace(id);
+        const data = await fetchWorkspace(id, token);
         if (!active) {
           return;
         }
