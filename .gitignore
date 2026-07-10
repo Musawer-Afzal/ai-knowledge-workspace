@@ -3,3 +3,10 @@
 Screenshots
 
 test/
+__pycache__/
+*.pyc
+backend/app/__pycache__/
+
+backend/alembic.ini
+backend/seed.py
+backend/alembic/env.py
