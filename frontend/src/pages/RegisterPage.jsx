@@ -12,7 +12,7 @@ export default function RegisterPage() {
         try {
             await registerUser(values);
 
-            alert("Registration successful!");
+            console.log("Registration successful!");
 
             navigate("/login");
 
