@@ -7,6 +7,7 @@ import Layout from "./layouts/Layout";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import HomeRedirect from "./components/HomeRedirect";
 
 export default function App() {
   return (
@@ -15,8 +16,18 @@ export default function App() {
       <Route element={<Layout />}>
 
         <Route
-          index
-          element={<HomePage />}
+          path = "/login"
+          element={<LoginPage />}
+        />        
+        
+        <Route
+          path="/register"
+          element={<RegisterPage />}
+      />
+
+        <Route
+          path = "/"
+          element={<HomeRedirect />}
         />
 
         <Route
@@ -35,16 +46,6 @@ export default function App() {
                   <WorkspaceDetailPage />
               </ProtectedRoute>
           }
-      />
-
-        <Route
-          path="/login"
-          element={<LoginPage />}
-        />        
-        
-        <Route
-          path="/register"
-          element={<RegisterPage />}
       />
 
         <Route
