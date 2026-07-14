@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import WorkspaceDetail from "../components/WorkspaceDetail";
-import Spinner from "../components/Spinner";
-import ErrorBox from "../components/ErrorBox";
-import EmptyState from "../components/EmptyState";
+import WorkspaceDetail from "../components/workspace/WorkspaceDetail";
+import Spinner from "../components/common/Spinner";
+import ErrorBox from "../components/common/ErrorBox";
+import EmptyState from "../components/common/EmptyState";
 
-import { fetchWorkspace } from "../services/workspaceApi";
+import { fetchWorkspace } from "../api/workspaceApi";
 import { useAuth } from "../contexts/AuthContext";
 
 
