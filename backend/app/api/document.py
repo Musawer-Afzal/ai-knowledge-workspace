@@ -1,5 +1,5 @@
 from fastapi import UploadFile, APIRouter, File, Depends, HTTPException
-from deps import owned_workspace
+from app.dependencies.auth import owned_workspace
 
 router = APIRouter()
 

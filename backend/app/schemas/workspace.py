@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, Field
 from datetime import datetime
 
 class WorkspaceCreate(BaseModel):
@@ -16,21 +16,6 @@ class WorkspaceOut(BaseModel):
     name: str
     description: str
     owner_id: str
-    created_at: datetime
-
-    model_config = {
-        "from_attributes": True
-    }
-
-
-class UserCreate(BaseModel):
-    email: EmailStr
-    password: str = Field(min_length=8)
-
-
-class UserOut(BaseModel):
-    id: str
-    email: EmailStr
     created_at: datetime
 
     model_config = {

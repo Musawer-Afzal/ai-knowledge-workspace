@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routes import router as workspace_router
-from auth import router as auth_router
-from document import router as document_router
+from app.api.workspaces import router as workspace_router
+from app.api.auth import router as auth_router
+from app.api.document import router as document_router
 
 app = FastAPI(
     title = "AI Knowedge Workspace",
