@@ -13,7 +13,7 @@ const workspaceSchema = z.object({
         .max(280, "Maximum 280 characters")
         .optional(),
 });
-export default function NewWorkSpaceForm({ onCreate }) {
+export default function NewWorkspaceForm({ onCreate }) {
 const {
     register,
     handleSubmit,

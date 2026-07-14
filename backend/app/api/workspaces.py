@@ -1,19 +1,18 @@
 from sqlalchemy import select
 
 from fastapi import APIRouter, Depends
-from models import Workspace
-from schemas import (
+from app.models import Workspace
+from app.schemas.workspace import (
     WorkspaceCreate,
     WorkspaceUpdate,
     WorkspaceOut,
 )
-from deps import current_user, owned_workspace
-from db import get_db
+from app.dependencies.auth import current_user, owned_workspace
+from app.database.db import get_db
 
 from sqlalchemy.orm import Session, selectinload
 
 router = APIRouter()
-
 
 PAGE_SIZE = 20
 

@@ -1,16 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 
 import WorkspaceCard from "./WorkspaceCard";
-import Spinner from "./Spinner";
-import ErrorBox from "./ErrorBox";
-import EmptyState from "./EmptyState";
-import NewWorkSpaceForm from "./NewWorkSpaceForm";
-import { useAuth } from "../contexts/AuthContext";
+import Spinner from "../common/Spinner";
+import ErrorBox from "../common/ErrorBox";
+import EmptyState from "../common/EmptyState";
+import NewWorkspaceForm from "./NewWorkspaceForm";
+import { useAuth } from "../../contexts/AuthContext";
 
 import { 
     fetchWorkspaces,
     createWorkspace
- } from "../services/workspaceApi";
+ } from "../../api/workspaceApi";
 
 export default function WorkspaceList() {
 
@@ -98,7 +98,7 @@ if(status === "loading"){
 
     return (
         <div className="space-y-6">
-            <NewWorkSpaceForm onCreate={handleCreateWorkspace} />
+            <NewWorkspaceForm onCreate={handleCreateWorkspace} />
             <div className="space-y-4">
                 {sortedWorkspaces.map(ws => (
                     <WorkspaceCard

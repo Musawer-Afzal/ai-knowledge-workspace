@@ -1,11 +1,8 @@
-# from app.security import hash_password
-from models import User
-from settings import settings
+from app.models import User
+from app.core.settings import settings
 
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker, Session
-
-import os
 
 
 engine = create_engine(

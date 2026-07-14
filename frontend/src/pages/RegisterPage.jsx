@@ -1,7 +1,7 @@
 import { useNavigate, Link } from "react-router-dom";
 
-import RegisterForm from "../components/RegisterForm";
-import { registerUser } from "../services/authApi";
+import RegisterForm from "../components/auth/RegisterForm";
+import { registerUser } from "../api/authApi";
 
 export default function RegisterPage() {
 

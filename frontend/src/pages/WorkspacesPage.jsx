@@ -1,4 +1,4 @@
-import WorkspaceList from "../components/WorkspaceList";
+import WorkspaceList from "../components/workspace/WorkspaceList";
 
 export default function WorkspacesPage() {
     return (

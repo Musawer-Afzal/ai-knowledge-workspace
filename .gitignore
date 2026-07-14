@@ -10,3 +10,4 @@ backend/app/__pycache__/
 backend/alembic.ini
 backend/seed.py
 backend/alembic/env.py
+print_tree.py
