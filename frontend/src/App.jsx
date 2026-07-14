@@ -6,8 +6,8 @@ import NotFoundPage from "./pages/NotFoundPage";
 import Layout from "./layouts/Layout";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import ProtectedRoute from "./components/ProtectedRoute";
-import HomeRedirect from "./components/HomeRedirect";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import HomeRedirect from "./components/workspace/HomeRedirect";
 
 export default function App() {
   return (
