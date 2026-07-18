@@ -11,3 +11,6 @@ backend/alembic.ini
 backend/seed.py
 backend/alembic/env.py
 print_tree.py
+
+backend/.env.test
+beckend/tests
