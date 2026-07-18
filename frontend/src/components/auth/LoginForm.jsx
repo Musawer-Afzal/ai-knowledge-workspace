@@ -43,7 +43,7 @@ export default function LoginForm({ onLogin }) {
                 </label>
 
                 <input
-                    id="email"
+                    placeholder="Email"
                     type="email"
                     {...register("email")}
                     className="mt-1 w-full rounded border p-2 focus:ring-2 focus:ring-blue-500"
@@ -65,7 +65,7 @@ export default function LoginForm({ onLogin }) {
                 </label>
 
                 <input
-                    id="password"
+                    placeholder="Password"
                     type="password"
                     {...register("password")}
                     className="mt-1 w-full rounded border p-2 focus:ring-2 focus:ring-blue-500"
@@ -83,7 +83,7 @@ export default function LoginForm({ onLogin }) {
                 disabled={isSubmitting}
                 className="rounded bg-black px-4 py-2 text-white disabled:opacity-50"
             >
-                {isSubmitting ? "Signing In..." : "Sign In"}
+                {isSubmitting ? "Logging In..." : "Login"}
             </button>
         </form>
     );

@@ -81,32 +81,32 @@ if(status === "loading"){
         return <Spinner />;
     }
 
-    if(status === "error"){
-        return(
-            <ErrorBox
-            onRetry={() => setRetryCount(prev => prev + 1)} 
-            />
-        );
-    }
-
-    if(workspaces.length === 0){
-        return (
-            <EmptyState 
-            message = "No Workspace yet"/>
-        );
-    }
+if(status === "error"){
+    return(
+        <ErrorBox
+        onRetry={() => setRetryCount(prev => prev + 1)} 
+        />
+    );
+}
 
     return (
-        <div className="space-y-6">
-            <NewWorkspaceForm onCreate={handleCreateWorkspace} />
-            <div className="space-y-4">
-                {sortedWorkspaces.map(ws => (
-                    <WorkspaceCard
-                        key={ws.id}
-                        workspace={ws}
-                    />
-                ))}
-            </div>
+    <div className="space-y-6">
+
+        <NewWorkspaceForm onCreate={handleCreateWorkspace} />
+
+        {workspaces.length === 0 ? (
+                <EmptyState message="No Workspace yet" />
+            ) : (
+                <div className="space-y-4">
+                    {sortedWorkspaces.map(ws => (
+                        <WorkspaceCard
+                            key={ws.id}
+                            workspace={ws}
+                        />
+                    ))}
+                </div>
+            )}
+
         </div>
     );
 }

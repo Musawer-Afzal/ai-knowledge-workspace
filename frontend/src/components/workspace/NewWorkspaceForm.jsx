@@ -33,9 +33,9 @@ async function submit(values) {
     return (
         <form onSubmit={handleSubmit(submit)} className="space-y-3" noValidate>
             <div>
-                <label htmlFor="name" className="block text-sm font-medium">Name</label>
+                <label htmlFor="name" className="block text-sm font-medium">Workspace Name</label>
                 <input
-                id="name"
+                placeholder="Workspace Name"
                 {...register("name")}
                 aria-invalid={errors.name ? "true" : "false"}
                 className="mt-1 w-full rounded border p-2 focus:ring-2 focus:ring-blue-500"/>
@@ -48,7 +48,7 @@ async function submit(values) {
                 Description (optional)
                 </label>
                     <textarea
-                    id="description"
+                    placeholder="Description (optional)"
                     {...register("description")}
                     className="mt-1 w-full rounded border p-2 focus:ring-2 focus:ring-blue-500"
                     />
@@ -61,7 +61,7 @@ async function submit(values) {
                     disabled={isSubmitting}
                     className="rounded bg-black px-4 py-2 text-white disabled:opacity-50"
                 >
-                {isSubmitting ? "Creating…" : "Create workspace"}
+                {isSubmitting ? "Creating…" : "Create"}
             </button>
         </form>
     );
