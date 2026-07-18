@@ -5,7 +5,7 @@ import Spinner from "../common/Spinner";
 import ErrorBox from "../common/ErrorBox";
 import EmptyState from "../common/EmptyState";
 import NewWorkspaceForm from "./NewWorkspaceForm";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 
 import { 
     fetchWorkspaces,
