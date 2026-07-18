@@ -8,8 +8,6 @@ __pycache__/
 backend/app/__pycache__/
 
 backend/seed.py
-backend/alembic/env.py
 print_tree.py
 
 backend/.env.test
-beckend/tests
