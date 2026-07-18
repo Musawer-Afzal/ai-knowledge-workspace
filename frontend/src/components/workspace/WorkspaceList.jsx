@@ -38,6 +38,7 @@ useEffect(() => {
         }
         catch(error){
             if(!cancelled){
+                console.error(error);
                 setStatus("error");
             }
         }

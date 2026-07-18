@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("User can login and create workspace", async ({ page, request }) => {
+test("User can login and create workspace", async ({ page }) => {
     const email = "demo@example.com";
     const password = "password123";
 

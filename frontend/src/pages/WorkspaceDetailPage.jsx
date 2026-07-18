@@ -28,6 +28,7 @@ export default function WorkspaceDetailPage() {
         setWorkspace(data);
         setStatus(data ? "done" : "missing");
       } catch (error) {
+        console.error(error);
         setStatus("error");
       }
     }
