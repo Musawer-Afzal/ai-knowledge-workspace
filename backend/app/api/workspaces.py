@@ -80,7 +80,7 @@ def update_workspace(
     return workspace
 
 
-@router.delete("/workspaces/{workspaces_id}", status_code = 204)
+@router.delete("/workspaces/{workspace_id}", status_code = 204)
 def delete_workspace(
     workspace = Depends(owned_workspace), 
     user = Depends(current_user),
