@@ -1,22 +1,25 @@
 import os
-
-os.environ["ENV"] = "test"
-
 from fastapi.testclient import TestClient
 import pytest
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
+from dotenv import load_dotenv
+load_dotenv()
+
+os.environ["ENV"] = "test"
 
 from app.main import app
 from app.database.db import get_db
 from app.models.base import Base
 
+TEST_DATABASE_URL = os.getenv("DATABASE_URL")
 
-TEST_DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "postgresql+psycopg://postgres:PostGreSQL14202!@localhost:5432/workspace_test",
-)
+if not TEST_DATABASE_URL:
+    raise RuntimeError(
+        "TEST_DATABASE_URL is not set. Please create a local .env file "
+        "with your database credentials."
+    )
 
 engine = create_engine(TEST_DATABASE_URL)
 

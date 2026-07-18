@@ -1,4 +1,6 @@
 from logging.config import fileConfig
+from pathlib import Path
+from dotenv import load_dotenv
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
@@ -59,14 +61,33 @@ def run_migrations_offline() -> None:
 
 
 def run_migrations_online() -> None:
-    """Run migrations in 'online' mode.
+    """Run migrations in 'online' mode."""
 
-    In this scenario we need to create an Engine
-    and associate a connection with the context.
+    # 1. Dynamically locate and load your local .env file
+    # This points to backend/ relative to backend/alembic/env.py
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    ENV_PATH = BASE_DIR / ".env"
+    
+    if ENV_PATH.exists():
+        load_dotenv(dotenv_path=ENV_PATH)
 
-    """
+    # 2. Read the base configuration from alembic.ini
+    configuration = config.get_section(config.config_ini_section) or {}
+    
+    # 3. Check the environment for DATABASE_URL. 
+    # Locally, it will be populated by the load_dotenv step above.
+    # In GitHub Actions, it will use the YAML-provided value.
+    env_db_url = os.getenv(
+        "DATABASE_URL", 
+        "postgresql+psycopg://postgres:PLACEHOLDER_PASSWORD@localhost:5432/workspace"
+    )
+    
+    # 4. Inject the correct URL into the configuration dictionary
+    configuration["sqlalchemy.url"] = env_db_url
+
+    # 5. Build the engine with our updated configurations
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section, {}),
+        configuration,
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )

@@ -60,7 +60,7 @@ jobs:
       - name: Run backend tests
         run: |
           pytest -q
-
+          
   frontend:
 
     runs-on: ubuntu-latest
