@@ -5,6 +5,7 @@ import Spinner from "../common/Spinner";
 import ErrorBox from "../common/ErrorBox";
 import EmptyState from "../common/EmptyState";
 import NewWorkspaceForm from "./NewWorkspaceForm";
+import { deleteWorkspace } from "../../api/workspaceApi";
 import { useAuth } from "../../hooks/useAuth";
 
 import { 
@@ -78,6 +79,18 @@ async function handleCreateWorkspace(values) {
     }
 }
 
+async function handleDelete(id) {
+    try {
+        await deleteWorkspace(id, token);
+
+        setWorkSpaces(prev =>
+            prev.filter(ws => ws.id !== id)
+        );
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 if(status === "loading"){
         return <Spinner />;
     }
@@ -103,6 +116,7 @@ if(status === "error"){
                         <WorkspaceCard
                             key={ws.id}
                             workspace={ws}
+                            onDelete={handleDelete}
                         />
                     ))}
                 </div>

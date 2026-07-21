@@ -77,10 +77,12 @@ def run_migrations_online() -> None:
     # 3. Check the environment for DATABASE_URL. 
     # Locally, it will be populated by the load_dotenv step above.
     # In GitHub Actions, it will use the YAML-provided value.
-    env_db_url = os.getenv(
-        "DATABASE_URL", 
-        "postgresql+psycopg://postgres:PLACEHOLDER_PASSWORD@localhost:5432/workspace"
-    )
+    env_db_url = os.getenv("DATABASE_URL")
+
+    if not env_db_url:
+        raise RuntimeError(
+            "DATABASE_URL is not set. Create backend/.env locally or configure the environment variable."
+        )
     
     # 4. Inject the correct URL into the configuration dictionary
     configuration["sqlalchemy.url"] = env_db_url
