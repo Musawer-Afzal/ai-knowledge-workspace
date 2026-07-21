@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.workspaces import router as workspace_router
 from app.api.auth import router as auth_router
 from app.api.document import router as document_router
+from app.core.settings import settings
 
 app = FastAPI(
     title = "AI Knowedge Workspace",
@@ -12,9 +13,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-    ],
+    allow_origins=settings.cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
