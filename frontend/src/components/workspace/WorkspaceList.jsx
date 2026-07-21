@@ -87,7 +87,7 @@ async function handleDelete(id) {
             prev.filter(ws => ws.id !== id)
         );
     } catch (err) {
-        alert("Failed to delete workspace.");
+        console.log(err);
     }
 }
 
