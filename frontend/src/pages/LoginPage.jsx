@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import LoginForm from "../components/auth/LoginForm";
 import { loginUser } from "../api/authApi";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 
 export default function LoginPage() {
 

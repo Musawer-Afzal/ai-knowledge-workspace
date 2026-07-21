@@ -7,7 +7,7 @@ import ErrorBox from "../components/common/ErrorBox";
 import EmptyState from "../components/common/EmptyState";
 
 import { fetchWorkspace } from "../api/workspaceApi";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 
 
 export default function WorkspaceDetailPage() {
@@ -28,6 +28,7 @@ export default function WorkspaceDetailPage() {
         setWorkspace(data);
         setStatus(data ? "done" : "missing");
       } catch (error) {
+        console.error(error);
         setStatus("error");
       }
     }
