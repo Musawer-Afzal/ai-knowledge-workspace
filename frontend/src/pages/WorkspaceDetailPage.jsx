@@ -50,7 +50,7 @@ export default function WorkspaceDetailPage() {
   if (status === "missing") {
       return (
           <EmptyState
-              message={`No workspace found with id "${id}".`}
+              message={`No workspace found.`}
           />
       );
   }
